@@ -18,8 +18,8 @@ function download(url, callback) {
         res.on("end", function() {
             callback(iconv.decode(bufferHelper.toBuffer(),'GBK'));
         });
-    }).on("error", function() {
-        callback(null);
+    }).on("error", function(error) {
+        callback(null, error);
     });
 }
 
@@ -32,8 +32,8 @@ function downloadHttps(url, callback) {
         res.on("end", function() {
             callback(data);
         });
-    }).on("error", function() {
-        callback(null);
+    }).on("error", function(error) {
+        callback(null, error);
     });
 }
 

@@ -15,6 +15,7 @@
     "serve-favicon": "~2.4.2",
     "task-chain": "latest",
     "iconv-lite": "latest",
-    "bufferhelper": "latest"
+    "bufferhelper": "latest",
+    "jsonfile": "latest"
   }
 }
