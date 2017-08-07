@@ -13,6 +13,8 @@
     "ejs": "latest",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2",
-    "task-chain": "latest"
+    "task-chain": "latest",
+    "iconv-lite": "latest",
+    "bufferhelper": "latest"
   }
 }
