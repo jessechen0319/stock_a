@@ -14,7 +14,6 @@ class FetchForStock {
         let now = new Date();
         let nowValue = Date.parse(now);
         let kLineURL = `http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[[%22hq%22,%22hs_a%22,%22%22,0,1,100]]&callback=analysisTitle`;
-        let stocks = "";
         GetHTMLContent.download(kLineURL, (response)=>{
             eval(response);
             
@@ -50,17 +49,22 @@ class FetchForStock {
             });
 
             function analysisEachPage(data){
+                var stocks = jsonfile.readFileSync(__dirname+'/stocks.json');
+                if(!stocks){
+                    stocks = [];
+                }
                 data[0].items.forEach((item)=>{
                     console.log(item[0]);
-                    //stocks.push(item[0]);
-                    stocks += item[0]+'|';
+                    stocks.push(item[0]);
                 });
+                console.log(`stocks length --->>> ${stocks.length}`)
+                jsonfile.writeFileSync(__dirname+'/stocks.json', stocks);
             }
         }
     }
 }
 
 let fetchForStock = new FetchForStock();
-fetchForStock.fetchStockName((stocks)=>{
-    console.log(`fetch stock code finished -------->> ${stocks}`);
+fetchForStock.fetchStockName(()=>{
+    
 });
