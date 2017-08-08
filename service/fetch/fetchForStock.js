@@ -56,9 +56,9 @@ class FetchForStock {
         function analysisTitle(data){
             console.log(data[0].count);
             let urls = [];
-            let maxPage = data[0].count/40 + 1;
+            let maxPage = data[0].count/80 + 1;
             for(let i = 0; i< maxPage; i++){
-                let URL = `http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[[%22hq%22,%22hs_a%22,%22%22,${i},${i+1},40]]&callback=analysisEachPage`;
+                let URL = `http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[[%22hq%22,%22hs_a%22,%22%22,${i},${i+1},80]]&callback=analysisEachPage`;
                 urls.push(URL);
             }
 
@@ -88,10 +88,8 @@ class FetchForStock {
                     stocks = [];
                 }
                 data[0].items.forEach((item)=>{
-                    console.log(item[0]);
                     stocks.push(item[0]);
                 });
-                console.log(`stocks length --->>> ${stocks.length}`)
                 jsonfile.writeFileSync(__dirname+'/stocks.json', stocks);
             }
         }
