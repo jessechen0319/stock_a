@@ -1,7 +1,7 @@
 //5天内144天线波动在4分以内，股价在13天线上方，在144天线下方，13， 34， 55天线多头排列
 
 
-let resultJsonPath = __dirname + '/../../result/shengmin1.json';
+let resultJsonPath = __dirname + '/../../result/shengmin1_restriction.json';
 const jsonfile = require('jsonfile');
 
 function getTheFibonacciDataForLateOne(list){
@@ -44,11 +44,13 @@ function calculate(data, stock){
                     let canEarn =   latestFibonacci.price144 - lastRecord['kline']['close'];
                     canEarn = canEarn/lastRecord['kline']['close'];
                     if(Math.abs(latestFibonacci.price144-fibonacci2.price144)<=0.01 && canEarn>0.02){
-                        
-                        var results = jsonfile.readFileSync(resultJsonPath);
-                        console.log(`insert shengmin1 ${stock}`);
-                        results.push({"stock":stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close});
-                        jsonfile.writeFileSync(resultJsonPath, results);
+                        if(lastRecord['kline']['close']<lastRecord['kline']['preClose'] && data.mashData[0]['kline']['close']<data.mashData[0]['kline']['preClose']){
+                            //连续调整两天
+                            var results = jsonfile.readFileSync(resultJsonPath);
+                            console.log(`insert shengmin1 ${stock}`);
+                            results.push({"stock":stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close});
+                            jsonfile.writeFileSync(resultJsonPath, results);
+                        }
                     }
                 }
             }
