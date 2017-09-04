@@ -104,8 +104,9 @@ let fetchForStock = new FetchForStock();
 
 let rsiLessThan20 = require('./fetchMethod/rsiLessThan20');
 let growth5_10_20 = require('./fetchMethod/growth5_10_20');
+let shengmin1 = require('./fetchMethod/shengmin1');
 
-fetchForStock.setAnalysis([rsiLessThan20.calculate, growth5_10_20.calculate]);
+fetchForStock.setAnalysis([rsiLessThan20.calculate, shengmin1.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
