@@ -16,7 +16,8 @@ function calculate(data, stock) {
             jsonfile.writeFileSync(resultJsonPath, results);
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        console.log(`error with stock->${stock}`);
     }
 
 }
