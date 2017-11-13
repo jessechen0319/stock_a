@@ -1,7 +1,8 @@
 //任何一个rsi的值小于30并且rsi1是增长状态
 //改成20
 let resultJsonPath = __dirname + '/../../result/rsiLessThan20.json';
-const jsonfile = require('jsonfile');
+const jsonfile = require('jsonfile');jsonfile.writeFileSync(resultJsonPath, []);
+jsonfile.writeFileSync(resultJsonPath, []);
 function calculate(data, stock){
     try {
         data = JSON.parse(data);

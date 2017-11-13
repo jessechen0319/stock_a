@@ -22,7 +22,7 @@ class FetchForStock {
         let chainTaskRunner = new ChainTaskRunner();
         let that = this;
         stocks.forEach((stock, index)=>{
-            let url = `https://gupiao.baidu.com/api/stocks/stockdaybar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
+            let url = `https://gupiao.baidu.com/api/stocks/stockdaybar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=365&fq_type=front&timestamp=${nowValue}`;
             let task = new ChainTask(()=>{
                 GetHTMLContent.downloadHttps(url, (response)=>{
                     if(that.analysis && that.analysis.length >0){
@@ -109,8 +109,11 @@ let shengmin1_restriction = require('./fetchMethod/shengmin1_restriction');
 let shengmin2 = require('./fetchMethod/shengmin2');
 let shengmin3 = require('./fetchMethod/shengmin3');
 let baidong = require('./fetchMethod/baidong');
+let liandie15tian = require('./fetchMethod/连跌15天');
+let biji144up = require('./fetchMethod/均线逼近144向上');
+let upwith13 = require('./fetchMethod/沿着13天线爬');
 
-fetchForStock.setAnalysis([shengmin1_restriction.calculate, shengmin1.calculate, shengmin2.calculate, shengmin3.calculate, baidong.calculate]);
+fetchForStock.setAnalysis([biji144up.calculate, upwith13.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
