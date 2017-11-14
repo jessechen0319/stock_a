@@ -17,9 +17,9 @@ function calculate(data, stock){
             if(data.mashData[0].ma144 > data.mashData[1].ma144){//144均线向上
                 if(data.mashData[0].ma144< data.mashData[0].ma55 && data.mashData[0].ma55 < data.mashData[0].ma34 && data.mashData[0].ma34 < data.mashData[0].ma13){//均线多头排列
                     let calculated = data.mashData[0].kline.close-data.mashData[0].ma13;
-                    calculate = calculate/data.mashData[0].kline.close;
-                    calculate = Math.abs(calculate);
-                    if(calculate < 0.02){//股价在13天线附近
+                    calculated = calculated/data.mashData[0].kline.close;
+                    calculated = Math.abs(calculated);
+                    if(calculated < 0.02){//股价在13天线附近
                         var results = jsonfile.readFileSync(resultJsonPath);
                         results.push({"stock":stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close});
                         console.log(`insert growth ${stock}`);

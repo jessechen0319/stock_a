@@ -18,9 +18,9 @@ function calculate(data, stock){
                     if(data.mashData[0].ma55>data.mashData[1].ma55){
                         if(data.mashData[0].ma13>data.mashData[1].ma13){
                             let calculated = data.mashData[0].kline.close - data.mashData[0].ma13;
-                            calculate = calculate / data.mashData[0].kline.close;
-                            calculate = Math.abs(calculate);
-                            if(calculate<0.06){//在13天均线附近6个点。
+                            calculated = calculated / data.mashData[0].kline.close;
+                            calculated = Math.abs(calculated);
+                            if(calculated<0.06){//在13天均线附近6个点。
                                 var results = jsonfile.readFileSync(resultJsonPath);
                                 results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close });
                                 console.log(`insert growth ${stock}`);
