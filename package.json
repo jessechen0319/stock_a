@@ -16,6 +16,7 @@
     "task-chain": "latest",
     "iconv-lite": "latest",
     "bufferhelper": "latest",
-    "jsonfile": "latest"
+    "jsonfile": "latest",
+    "jquery": "latest"
   }
 }
