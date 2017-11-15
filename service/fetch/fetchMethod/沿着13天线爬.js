@@ -20,11 +20,15 @@ function calculate(data, stock){
                             let calculated = data.mashData[0].kline.close - data.mashData[0].ma13;
                             calculated = calculated / data.mashData[0].kline.close;
                             calculated = Math.abs(calculated);
-                            if(calculated<0.06){//在13天均线附近6个点。
-                                var results = jsonfile.readFileSync(resultJsonPath);
-                                results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close });
-                                console.log(`insert growth ${stock}`);
-                                jsonfile.writeFileSync(resultJsonPath, results);
+                            if(calculated<0.03){//在13天均线附近6个点。
+                                if(data.mashData[0].macd.macd>0){//macd是红的
+                                    if(data.mashData[0].kline.close>data.mashData[1].kline.close){//股价上涨
+                                        let results = jsonfile.readFileSync(resultJsonPath);
+                                        results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close });
+                                        console.log(`insert growth ${stock}`);
+                                        jsonfile.writeFileSync(resultJsonPath, results);
+                                    }
+                                }
                             }
                         }
                     }
