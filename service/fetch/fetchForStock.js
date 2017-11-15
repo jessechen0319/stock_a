@@ -115,7 +115,7 @@ let upwith13 = require('./fetchMethod/沿着13天线爬');
 
 let children = require('./fetchMethod/底部婴儿形态');
 
-fetchForStock.setAnalysis([biji144up.calculate, children.calculate]);
+fetchForStock.setAnalysis([upwith13.calculate, children.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
