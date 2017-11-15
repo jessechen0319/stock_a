@@ -113,7 +113,9 @@ let liandie15tian = require('./fetchMethod/连跌15天');
 let biji144up = require('./fetchMethod/均线逼近144向上');
 let upwith13 = require('./fetchMethod/沿着13天线爬');
 
-fetchForStock.setAnalysis([biji144up.calculate, upwith13.calculate]);
+let children = require('./fetchMethod/底部婴儿形态');
+
+fetchForStock.setAnalysis([biji144up.calculate, children.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
