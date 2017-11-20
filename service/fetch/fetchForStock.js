@@ -114,8 +114,9 @@ let biji144up = require('./fetchMethod/均线逼近144向上');
 let upwith13 = require('./fetchMethod/沿着13天线爬');
 
 let children = require('./fetchMethod/底部婴儿形态');
+let boom = require('./fetchMethod/起爆点');
 
-fetchForStock.setAnalysis([upwith13.calculate, children.calculate]);
+fetchForStock.setAnalysis([upwith13.calculate, boom.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
