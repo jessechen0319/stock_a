@@ -18,7 +18,7 @@ function calculate(data, stock){
                 if(data.mashData[0].kline.close>data.mashData[0].ma55){
                     if(data.mashData[0].kline.close>data.mashData[0].ma34){
                         if(data.mashData[0].kline.close>data.mashData[0].ma13){
-                            if(Math.abs(data.mashData[0].ma144-data.mashData[5].ma144)<0.02){//144走平
+                            if(Math.abs(data.mashData[0].ma144-data.mashData[5].ma144)<0.04){//144走平
                                 let condition1 = false, condition2 = false;
                                 if(data.mashData[1].kline.close<data.mashData[1].ma55){
                                     if(condition1){
