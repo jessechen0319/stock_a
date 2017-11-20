@@ -42,7 +42,7 @@ function calculate(data, stock){
                                     }
                                 }
 
-                                if(condition1 && condition2){
+                                if(condition1 && data.mashData[1].kline.close>data.mashData[2].kline.close){
                                     let amountYesterday = data.mashData[1].kline.amount*4/3;
                                     if(data.mashData[0].kline.amount>amountYesterday){
                                         let results = jsonfile.readFileSync(resultJsonPath);
