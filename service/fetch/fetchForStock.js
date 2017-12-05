@@ -112,11 +112,12 @@ let baidong = require('./fetchMethod/baidong');
 let liandie15tian = require('./fetchMethod/连跌15天');
 let biji144up = require('./fetchMethod/均线逼近144向上');
 let upwith13 = require('./fetchMethod/沿着13天线爬');
+let nianhe = require('./fetchMethod/均线黏合股价向上');
 
 let children = require('./fetchMethod/底部婴儿形态');
 let boom = require('./fetchMethod/起爆点');
 
-fetchForStock.setAnalysis([upwith13.calculate, boom.calculate]);
+fetchForStock.setAnalysis([biji144up.calculate, boom.calculate, nianhe.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 

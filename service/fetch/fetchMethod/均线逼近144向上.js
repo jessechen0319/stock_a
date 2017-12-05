@@ -19,9 +19,9 @@ function calculate(data, stock){
                     let calculated = data.mashData[0].kline.close-data.mashData[0].ma13;
                     calculated = calculated/data.mashData[0].kline.close;
                     calculated = Math.abs(calculated);
-                    if(calculated < 0.02){//股价在13天线附近
+                    if(calculated < 0.01){//股价在13天线附近
                         var results = jsonfile.readFileSync(resultJsonPath);
-                        results.push({"stock":stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close});
+                        results.push({"stock":stock, "strategy":"多头排列，股价不高", "date": data.mashData[0].date, "price": data.mashData[0].kline.close});
                         console.log(`insert growth ${stock}`);
                         jsonfile.writeFileSync(resultJsonPath, results);
 
