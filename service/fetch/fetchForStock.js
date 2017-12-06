@@ -36,7 +36,7 @@ class FetchForStock {
                             callback();
                         }
                         task.end();
-                    }, 500);
+                    }, 50);
                 });
             });
             chainTaskRunner.addTask(task);
@@ -116,8 +116,9 @@ let nianhe = require('./fetchMethod/均线黏合股价向上');
 
 let children = require('./fetchMethod/底部婴儿形态');
 let boom = require('./fetchMethod/起爆点');
+let growth144_55 = require('./fetchMethod/day144_55_向上');
 
-fetchForStock.setAnalysis([biji144up.calculate, boom.calculate, nianhe.calculate]);
+fetchForStock.setAnalysis([growth144_55.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
