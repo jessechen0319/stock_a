@@ -15,7 +15,6 @@ function calculate(data, stock) {
                 if (data.mashData[0].ma13 > data.mashData[1].ma13) {
                     if (data.mashData[0].kline.close > data.mashData[0].ma13) {
                         if ((data.mashData[1].kline.amount + data.mashData[2].kline.amount) > 2 * (data.mashData[3].kline.amount + data.mashData[4].kline.amount)) {
-                            if(data.mashData[3].kline.close < data.mashData[3].ma13){
                                 if(data.mashData[3].kline.close < data.mashData[3].ma34){
                                     if(data.mashData[3].kline.close < data.mashData[3].ma55){
                                         if(data.mashData[0].kline.close>data.mashData[0].ma34){
@@ -28,7 +27,6 @@ function calculate(data, stock) {
                                         }
                                     }
                                 }
-                            }
                         }
                     }
                 }
