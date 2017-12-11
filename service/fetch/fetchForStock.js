@@ -22,7 +22,10 @@ class FetchForStock {
         let chainTaskRunner = new ChainTaskRunner();
         let that = this;
         stocks.forEach((stock, index)=>{
-            let url = `https://gupiao.baidu.com/api/stocks/stockdaybar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=365&fq_type=front&timestamp=${nowValue}`;
+            //日K
+            //let url = `https://gupiao.baidu.com/api/stocks/stockdaybar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
+            //周K
+            let url = `https://gupiao.baidu.com/api/stocks/stockweekbar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
             let task = new ChainTask(()=>{
                 GetHTMLContent.downloadHttps(url, (response)=>{
                     if(that.analysis && that.analysis.length >0){

@@ -14,27 +14,42 @@ function calculate(data, stock) {
             //计算非布拉切均线
             data = util.generateFibonacci(data);
 
-            if (data.mashData[0].ma144 > data.mashData[0].ma55) {//均线144， 55， 34， 13依次排列
-                if (data.mashData[0].ma55 > data.mashData[0].ma34) {
-                    if (data.mashData[0].ma34 > data.mashData[0].ma13) {
-                        if (data.mashData[0].macd.macd > 0) {//macd红的
-                            if (Math.abs(data.mashData[0].ma55 - data.mashData[4].ma55) < 0.06) {//5天内34，55走平
-                                if (Math.abs(data.mashData[0].ma34 - data.mashData[4].ma34) < 0.06) {
-                                    if (data.mashData[0].ma5['volume'] > data.mashData[0].ma10['volume']) {//5日均量金叉10日均量
-                                        if(data.mashData[0].kline.close>data.mashData[0].ma13){
-                                            let results = jsonfile.readFileSync(resultJsonPath);
-                                            results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close, "strong":macdutil.findIfGodPointIsAboveZero(data) });
-                                            console.log(`insert children ${stock}`);
-                                            jsonfile.writeFileSync(resultJsonPath, results);
-                                        }
-                                    }
-                                }
+            if (data.mashData[0].ma13 > data.mashData[0].ma34) {
+                if (data.mashData[0].ma13 > data.mashData[1].ma13) {
+                    if (data.mashData[0].kline.close > data.mashData[0].ma13) {
+                        if ((data.mashData[0].ma55 - data.mashData[0].kline.close) / data.mashData[0].kline.close > 0.09) {
+                            if ((data.mashData[0].kline.volume + data.mashData[1].kline.volume + data.mashData[2].kline.volume) > 2 * (data.mashData[3].kline.volume + data.mashData[4].kline.volume + data.mashData[5].kline.volume)) {
+                                let results = jsonfile.readFileSync(resultJsonPath);
+                                results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close, "strong": macdutil.findIfGodPointIsAboveZero(data) });
+                                console.log(`insert children ${stock}`);
+                                jsonfile.writeFileSync(resultJsonPath, results);
                             }
                         }
-
                     }
                 }
             }
+
+            // if (data.mashData[0].ma144 > data.mashData[0].ma55) {//均线144， 55， 34， 13依次排列
+            //     if (data.mashData[0].ma55 > data.mashData[0].ma34) {
+            //         if (data.mashData[0].ma34 > data.mashData[0].ma13) {
+            //             if (data.mashData[0].macd.macd > 0) {//macd红的
+            //                 if (Math.abs(data.mashData[0].ma55 - data.mashData[4].ma55) < 0.06) {//5天内34，55走平
+            //                     if (Math.abs(data.mashData[0].ma34 - data.mashData[4].ma34) < 0.06) {
+            //                         if (data.mashData[0].ma5['volume'] > data.mashData[0].ma10['volume']) {//5日均量金叉10日均量
+            //                             if(data.mashData[0].kline.close>data.mashData[0].ma13){
+            //                                 let results = jsonfile.readFileSync(resultJsonPath);
+            //                                 results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close, "strong":macdutil.findIfGodPointIsAboveZero(data) });
+            //                                 console.log(`insert children ${stock}`);
+            //                                 jsonfile.writeFileSync(resultJsonPath, results);
+            //                             }
+            //                         }
+            //                     }
+            //                 }
+            //             }
+
+            //         }
+            //     }
+            // }
 
             // if(data.mashData[0].ma144< data.mashData[0].ma55 && data.mashData[0].ma55 < data.mashData[0].ma34 && data.mashData[0].ma34 < data.mashData[0].ma13){
             //     if(data.mashData[0].ma144>data.mashData[1].ma144){//趋势线向上
