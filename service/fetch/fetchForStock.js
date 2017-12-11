@@ -121,7 +121,7 @@ let children = require('./fetchMethod/底部婴儿形态');
 let boom = require('./fetchMethod/起爆点');
 let growth144_55 = require('./fetchMethod/day144_55_向上');
 
-fetchForStock.setAnalysis([growth144_55.calculate]);
+fetchForStock.setAnalysis([children.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
@@ -137,5 +137,5 @@ let stockAnalysisTask = new ChainTask(()=>{
     });
 });
 
-//chainRunner.addTask(stockNameTask);
+chainRunner.addTask(stockNameTask);
 chainRunner.addTask(stockAnalysisTask);
