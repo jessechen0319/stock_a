@@ -8,16 +8,13 @@ const macdutil = require('../../util/MACD');
 function calculate(data, stock) {
     try {
         data = JSON.parse(data);
-
-        if (data.mashData.length > 160) {
-
+        if (data.mashData.length > 150) {
             //计算非布拉切均线
             data = util.generateFibonacci(data);
-
             if (data.mashData[0].ma13 > data.mashData[0].ma34) {
                 if (data.mashData[0].ma13 > data.mashData[1].ma13) {
                     if (data.mashData[0].kline.close > data.mashData[0].ma13) {
-                        if ((data.mashData[1].kline.volume + data.mashData[2].kline.volume) > 2 * (data.mashData[3].kline.volume + data.mashData[4].kline.volume + data.mashData[5].kline.volume)) {
+                        if ((data.mashData[1].kline.amount + data.mashData[2].kline.amount) > 2 * (data.mashData[3].kline.amount + data.mashData[4].kline.amount)) {
                             if(data.mashData[3].kline.close < data.mashData[3].ma13){
                                 if(data.mashData[3].kline.close < data.mashData[3].ma34){
                                     if(data.mashData[3].kline.close < data.mashData[3].ma55){
