@@ -17,12 +17,20 @@ function calculate(data, stock) {
             if (data.mashData[0].ma13 > data.mashData[0].ma34) {
                 if (data.mashData[0].ma13 > data.mashData[1].ma13) {
                     if (data.mashData[0].kline.close > data.mashData[0].ma13) {
-                        if ((data.mashData[0].ma55 - data.mashData[0].kline.close) / data.mashData[0].kline.close > 0.09) {
-                            if ((data.mashData[0].kline.volume + data.mashData[1].kline.volume + data.mashData[2].kline.volume) > 2 * (data.mashData[3].kline.volume + data.mashData[4].kline.volume + data.mashData[5].kline.volume)) {
-                                let results = jsonfile.readFileSync(resultJsonPath);
-                                results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close, "strong": macdutil.findIfGodPointIsAboveZero(data) });
-                                console.log(`insert children ${stock}`);
-                                jsonfile.writeFileSync(resultJsonPath, results);
+                        if ((data.mashData[1].kline.volume + data.mashData[2].kline.volume) > 2 * (data.mashData[3].kline.volume + data.mashData[4].kline.volume + data.mashData[5].kline.volume)) {
+                            if(data.mashData[3].kline.close < data.mashData[3].ma13){
+                                if(data.mashData[3].kline.close < data.mashData[3].ma34){
+                                    if(data.mashData[3].kline.close < data.mashData[3].ma55){
+                                        if(data.mashData[0].kline.close>data.mashData[0].ma34){
+                                            if(data.mashData[0].kline.close>data.mashData[0].ma55){
+                                                let results = jsonfile.readFileSync(resultJsonPath);
+                                                results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close, "strong": macdutil.findIfGodPointIsAboveZero(data) });
+                                                console.log(`insert children ${stock}`);
+                                                jsonfile.writeFileSync(resultJsonPath, results);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
