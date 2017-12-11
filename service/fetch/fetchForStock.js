@@ -39,7 +39,7 @@ class FetchForStock {
                             callback();
                         }
                         task.end();
-                    }, 50);
+                    }, 150);
                 });
             });
             chainTaskRunner.addTask(task);
