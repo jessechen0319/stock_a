@@ -66,15 +66,18 @@ function calculate(data, stock){
 
             if(middle.low < right.low && middle.high < right.high){
                 if(middle.low < left.low && middle.high < left.high){
-                    let lengthOfMiddle = middle.high - middle.low;
-                    if(middle.high - middle.close < middle.close - middle.low){
-                        if(right.close*2>(left.low + left.high)){
-                            let results = jsonfile.readFileSync(resultJsonPath);
-                            results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close });
-                            console.log(`insert di weekly ${stock}`);
-                            jsonfile.writeFileSync(resultJsonPath, results);
+                    if(middle.low < processedCover[3].low && middle.low < processedCover[4].low){
+                        let lengthOfMiddle = middle.high - middle.low;
+                        if(middle.high - middle.close < middle.close - middle.low){
+                            if(right.close*2>(left.low + left.high)){
+                                let results = jsonfile.readFileSync(resultJsonPath);
+                                results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close });
+                                console.log(`insert di weekly ${stock}`);
+                                jsonfile.writeFileSync(resultJsonPath, results);
+                            }
                         }
                     }
+                    
                 }
             }
         }
