@@ -123,9 +123,10 @@ let growth144_55 = require('./fetchMethod/day144_55_向上');
 
 let dragon = require('./fetchMethod/潜龙吸水');
 let zhouxianfenxing = require('./fetchMethod/周线底分型');
+let zhouKxiadie = require('./fetchMethod/不改变趋势周K下跌');
 
 
-fetchForStock.setAnalysis([zhouxianfenxing.calculate]);
+fetchForStock.setAnalysis([zhouKxiadie.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
