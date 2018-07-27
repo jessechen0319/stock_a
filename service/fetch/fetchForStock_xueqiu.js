@@ -1,1 +1,1 @@
-https://xueqiu.com/stock/forchartk/stocklist.json?symbol=SH601677&period=1day&type=normal&begin=1473260553919&end=1504796553919&_=1504796553920
+//https://xueqiu.com/stock/forchartk/stocklist.json?symbol=SH601677&period=1day&type=normal&begin=1473260553919&end=1504796553919&_=1504796553920
