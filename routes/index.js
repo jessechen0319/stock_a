@@ -4,6 +4,10 @@ var FetchForStock = require("../service/fetch/fetchForStock");
 let growth144_55 = require('../service/fetch/fetchMethod/day144_55_向上');
 
 
+let ChainTask = require('task-chain').ChainTask;
+let ChainTaskRunner = require('task-chain').ChainTaskRunner;
+
+var jsonfile = require('jsonfile');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
