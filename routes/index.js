@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fetchService = require("../service/fetch/fetchForStock");
+var FetchForStock = require("../service/fetch/fetchForStock");
 let growth144_55 = require('../service/fetch/fetchMethod/day144_55_向上');
 
 
