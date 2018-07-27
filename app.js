@@ -8,6 +8,13 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var FetchForStock = require("./service/fetch/fetchForStock");
+let growth144_55 = require('./service/fetch/fetchMethod/day144_55_向上');
+
+
+let ChainTask = require('task-chain').ChainTask;
+let ChainTaskRunner = require('task-chain').ChainTaskRunner;
+
 var app = express();
 
 // view engine setup
@@ -33,10 +40,25 @@ app.use(function(req, res, next) {
 });
 
 var CronJob = require('cron').CronJob;
-var fetchService = require('./service/fetch/fetchForStock');
 
 new CronJob('00 20 15 * * 1-5', function() {
-  fetchService.analysis();
+  let fetchForStock = new FetchForStock();
+  fetchForStock.setAnalysis([growth144_55.calculate]);
+  let chainRunner = new ChainTaskRunner();
+  let stockNameTask = new ChainTask(() => {
+    fetchForStock.fetchStockName(() => {
+      stockNameTask.end();
+    });
+  });
+
+  let stockAnalysisTask = new ChainTask(() => {
+    fetchForStock.fetchStockDetail(() => {
+      stockAnalysisTask.end();
+    });
+  });
+
+  chainRunner.addTask(stockNameTask);
+  chainRunner.addTask(stockAnalysisTask);
 }, null, true, 'Asia/Shanghai');
 
 
