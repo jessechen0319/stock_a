@@ -32,6 +32,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+var CronJob = require('cron').CronJob;
+var fetchService = require('./service/fetch/fetchForStock');
+
+new CronJob('00 20 15 * * 1-5', function() {
+  fetchService.analysis();
+}, null, true, 'Asia/Shanghai');
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

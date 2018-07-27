@@ -17,6 +17,7 @@
     "iconv-lite": "latest",
     "bufferhelper": "latest",
     "jsonfile": "latest",
-    "jquery": "latest"
+    "jquery": "latest",
+    "cron": "~1.3.0"
   }
 }

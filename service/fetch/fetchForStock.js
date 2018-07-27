@@ -144,3 +144,22 @@ let stockAnalysisTask = new ChainTask(()=>{
 
 chainRunner.addTask(stockNameTask);
 chainRunner.addTask(stockAnalysisTask);
+
+function analysis(){
+    let stockNameTask = new ChainTask(()=>{
+        fetchForStock.fetchStockName(()=>{
+            stockNameTask.end();
+        });
+    });
+    
+    let stockAnalysisTask = new ChainTask(()=>{
+        fetchForStock.fetchStockDetail(()=>{
+            stockAnalysisTask.end();
+        });
+    });
+    
+    chainRunner.addTask(stockNameTask);
+    chainRunner.addTask(stockAnalysisTask);
+}
+
+exports.analysis = analysis;

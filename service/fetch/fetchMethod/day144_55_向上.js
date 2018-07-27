@@ -13,16 +13,14 @@ function calculate(data, stock) {
 
             //计算非布拉切均线
             data = util.generateFibonacci(data);
-
-
-            if (data.mashData[0].ma144 > data.mashData[1].ma144) {
-                if (data.mashData[0].ma55 > data.mashData[1].ma55) {
-                    if(data.mashData[0].ma144<data.mashData[0].ma55){
+            if (data.mashData[0].ma144 >= data.mashData[1].ma144) {
+                if (data.mashData[0].ma55 >= data.mashData[1].ma55) {
+                    if (data.mashData[0].ma144 <= data.mashData[0].ma55) {
                         let results = jsonfile.readFileSync(resultJsonPath);
                         results.push({ "stock": stock, "date": data.mashData[0].date, "price": data.mashData[0].kline.close })
                         jsonfile.writeFileSync(resultJsonPath, results);
                     }
-                    
+
 
                 }
             }
