@@ -101,8 +101,6 @@ class FetchForStock {
 
 module.exports = FetchForStock;
 
-let fetchForStock = new FetchForStock();
-
 //rsiLessThan20
 
 let rsiLessThan20 = require('./fetchMethod/rsiLessThan20');
@@ -125,26 +123,3 @@ let dragon = require('./fetchMethod/潜龙吸水');
 let zhouxianfenxing = require('./fetchMethod/周线底分型');
 let zhouKxiadie = require('./fetchMethod/不改变趋势周K下跌');
 
-
-fetchForStock.setAnalysis([growth144_55.calculate]);
-
-let chainRunner = new ChainTaskRunner();
-
-function analysis(){
-    let stockNameTask = new ChainTask(()=>{
-        fetchForStock.fetchStockName(()=>{
-            stockNameTask.end();
-        });
-    });
-    
-    let stockAnalysisTask = new ChainTask(()=>{
-        fetchForStock.fetchStockDetail(()=>{
-            stockAnalysisTask.end();
-        });
-    });
-    
-    chainRunner.addTask(stockNameTask);
-    chainRunner.addTask(stockAnalysisTask);
-}
-
-exports.analysis = analysis;
