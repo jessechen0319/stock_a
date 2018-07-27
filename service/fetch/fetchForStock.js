@@ -126,7 +126,7 @@ let zhouxianfenxing = require('./fetchMethod/周线底分型');
 let zhouKxiadie = require('./fetchMethod/不改变趋势周K下跌');
 
 
-fetchForStock.setAnalysis([zhouxianfenxing.calculate]);
+fetchForStock.setAnalysis([growth5_10_20.calculate]);
 
 let chainRunner = new ChainTaskRunner();
 
