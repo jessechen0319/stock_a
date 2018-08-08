@@ -38,6 +38,7 @@ class FetchBasicInformation{
         let chainRunner = new ChainTaskRunner();
     
         stocks.forEach(element => {
+            console.log(stocks.length);
             let task = new ChainTask(()=>{
                 let url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+element;
                 GetHTMLContent.download(url, (data)=>{
