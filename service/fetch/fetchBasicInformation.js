@@ -2,6 +2,8 @@ let GetHTMLContent = require('./GetHTMLContent');
 let ChainTask = require('task-chain').ChainTask;
 let ChainTaskRunner = require('task-chain').ChainTaskRunner;
 var jsonfile = require('jsonfile');
+let resultJsonPath = "./highQualityStocks.json";
+jsonfile.writeFileSync(resultJsonPath, []);
 
 class FetchBasicInformation{
     structure(){
@@ -18,10 +20,12 @@ class FetchBasicInformation{
                 let latestCash = Number(jsonData[0]['mgjyxjl']);
                 if(latestCash>0){
                     let secondCash = Number(jsonData[4]['mgjyxjl']);
-                    if(secondCash<0 || (latestCash-secondCash)/secondCash > 0.4){
+                    if(secondCash<0 || (latestCash-secondCash)/secondCash > 0.7){
                         if(Number(jsonData[0]['jbmgsy']) > Number(jsonData[4]['jbmgsy'])){
                             //add
-                            console.log(name);
+                            let results = jsonfile.readFileSync(resultJsonPath);
+                            results.push(name);
+                            jsonfile.writeFileSync(resultJsonPath, results);
                         }
                     } 
                 }
