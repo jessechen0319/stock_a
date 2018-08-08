@@ -39,7 +39,24 @@ class FetchBasicInformation{
     
         stocks.forEach(element => {
             let task = new ChainTask(()=>{
-                self.downloadInformation(element);
+                let url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+element;
+                GetHTMLContent.download(url, (data)=>{
+                    try {
+                        let jsonData = JSON.parse(data);
+                        let latestCash = Number(jsonData[0]['mgjyxjl']);
+                        if(latestCash>0){
+                            let secondCash = Number(jsonData[4]['mgjyxjl']);
+                            if(secondCash<0 || (latestCash-secondCash)/secondCash > 0.4){
+                                if(Number(jsonData[0]['jbmgsy']) > Number(jsonData[4]['jbmgsy'])){
+                                    //add
+                                    console.log(element);
+                                }
+                            } 
+                        }
+                    } catch (error) {
+                        cocnsole.log(error);
+                    }
+                });
             });
             setTimeout(() => {
                 chainRunner.addTask(task);
