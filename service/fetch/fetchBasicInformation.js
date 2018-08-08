@@ -14,9 +14,35 @@ class FetchBasicInformation{
         let url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+name;
         GetHTMLContent.download(url, (data)=>{
             console.log(data);
+            try {
+                let jsonData = JSON.parse(data);
+                let latestCash = Number(jsonData[0]['mgjyxjl']);
+                if(latestCash>0){
+                    let secondCash = Number(jsonData[4]['mgjyxjl']);
+                    if(secondCash<0 || (latestCash-secondCash)/secondCash > 0.4){
+                        if(Number(jsonData[0]['jbmgsy']) > Number(jsonData[4]['jbmgsy'])){
+                            //add
+                            console.log(name);
+                        }
+                    } 
+                }
+            } catch (error) {
+                cocnsole.log(error);
+            }
+        });
+    }
+
+    fetch(){
+        let stocks = jsonfile.readFileSync(__dirname+'/stocks.json');
+        let chainTaskRunner = new ChainTaskRunner();
+        stock.forEach(element => {
+            let task = new ChainTask(()=>{
+                downloadInformation(element);
+            });
+            chainTaskRunner.addTask(task);
         });
     }
 }
 
 let test = new FetchBasicInformation();
-test.downloadInformation('sh601677');
+test.fetch();
