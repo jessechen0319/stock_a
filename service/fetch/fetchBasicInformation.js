@@ -5,7 +5,7 @@ var jsonfile = require('jsonfile');
 
 class FetchBasicInformation{
     structure(){
-
+        this.chainTaskRunner = new ChainTaskRunner();
     }
 
     downloadInformation(name) {
@@ -13,7 +13,6 @@ class FetchBasicInformation{
         //let chainTaskRunner = new ChainTaskRunner();
         let url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+name;
         GetHTMLContent.download(url, (data)=>{
-            console.log(data);
             try {
                 let jsonData = JSON.parse(data);
                 let latestCash = Number(jsonData[0]['mgjyxjl']);
@@ -34,14 +33,14 @@ class FetchBasicInformation{
 
     fetch(){
         let stocks = jsonfile.readFileSync(__dirname+'/stocks.json');
-        let chainTaskRunner = new ChainTaskRunner();
+        
         let self = this;
     
         stocks.forEach(element => {
             let task = new ChainTask(()=>{
-                this.downloadInformation(element);
+                self.downloadInformation(element);
             });
-            chainTaskRunner.addTask(task);
+            self.chainTaskRunner.addTask(task);
         });
     }
 }
