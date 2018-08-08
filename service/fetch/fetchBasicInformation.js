@@ -35,13 +35,15 @@ class FetchBasicInformation{
         let stocks = jsonfile.readFileSync(__dirname+'/stocks.json');
         
         let self = this;
-        let chainRunner = this.chainTaskRunner;
+        let chainRunner = new ChainTaskRunner();
     
         stocks.forEach(element => {
             let task = new ChainTask(()=>{
                 self.downloadInformation(element);
             });
-            chainRunner.addTask(task);
+            setTimeout(() => {
+                chainRunner.addTask(task);
+            }, 50);
         });
     }
 }
