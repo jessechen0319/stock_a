@@ -121,7 +121,7 @@ class FetchForStock {
             //周K
             //et url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+stock;
             let task = new ChainTask(()=>{
-                downloadInformation(stock);
+                this.downloadInformation(stock);
             });
             chainTaskRunner.addTask(task);
         });
@@ -184,6 +184,7 @@ module.exports = FetchForStock;
 
 //test
 let chainRunner = new ChainTaskRunner();
+let fetchForStock = new FetchForStock();
  let stockNameTask = new ChainTask(()=>{	
     fetchForStock.fetchStockName(()=>{	
         stockNameTask.end();	
