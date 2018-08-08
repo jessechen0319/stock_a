@@ -30,7 +30,7 @@ class FetchBasicInformation{
                     } 
                 }
             } catch (error) {
-                cocnsole.log(error);
+                console.log(error);
             }
             task.end();
         });
