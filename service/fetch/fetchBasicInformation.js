@@ -86,7 +86,7 @@ class FetchForStock {
         this.analysis = analysis;
     }
 
-    downloadInformation(name) {
+    downloadInformation(name, task) {
 
         //let chainTaskRunner = new ChainTaskRunner();
         let url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+name;
@@ -106,6 +106,7 @@ class FetchForStock {
             } catch (error) {
                 cocnsole.log(error);
             }
+            task.end();
         });
     }
 
@@ -121,7 +122,7 @@ class FetchForStock {
             //周K
             //et url = 'http://emweb.securities.eastmoney.com/NewFinanceAnalysis/MainTargetAjax?ctype=4&type=0&code='+stock;
             let task = new ChainTask(()=>{
-                this.downloadInformation(stock);
+                this.downloadInformation(stock, task);
             });
             chainTaskRunner.addTask(task);
         });
