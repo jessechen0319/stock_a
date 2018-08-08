@@ -39,7 +39,7 @@ class FetchBasicInformation{
         console.log(this);
         stocks.forEach(element => {
             let task = new ChainTask(()=>{
-                self.addTaskdownloadInformation(element);
+                this.downloadInformation(element);
             });
             chainTaskRunner.addTask(task);
         });
