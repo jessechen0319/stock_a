@@ -71,12 +71,12 @@ class FetchBasicInformation {
         let that = this;
         let shortGoodPath = './goodShort.json';
         jsonfile.writeFileSync(shortGoodPath, []);
-        let fetchTask = new ChainTask(() => {
-            that.fetch(() => {
-                fetchTask.end();
-            })
-        });
-        myTaskRunner.addTask(fetchTask);
+        // let fetchTask = new ChainTask(() => {
+        //     that.fetch(() => {
+        //         fetchTask.end();
+        //     })
+        // });
+        // myTaskRunner.addTask(fetchTask);
 
         let stocks = jsonfile.readFileSync(__dirname + '/stocks.json');
         let now = new Date();
