@@ -100,11 +100,11 @@ class FetchBasicInformation {
                                 let shangyinxian = analysisData[3] - analysisData[5];
                                 let zhangE = analysisData[5] - analysisData[2];
                                 if (zhangE > 0) {
-                                    if (shangyinxian / zhangE < 0.3) {
+                                    
                                         let results = jsonfile.readFileSync(shortGoodPath);
                                         results.push(item);
                                         jsonfile.writeFileSync(shortGoodPath, results);
-                                    }
+                                    
                                 }
                             }
                         }
