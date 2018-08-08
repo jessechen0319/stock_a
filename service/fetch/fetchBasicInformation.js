@@ -95,8 +95,10 @@ class FetchBasicInformation {
 
                             let averageAmound = compare1[1] + compare2[1] + compare3[1];
                             averageAmound = averageAmound / 3;
+                            console.log(analysisData[1]);
 
                             if (analysisData[1] > 2 * averageAmound) {
+                                console.log(`good for ${item}`);
                                 let results = jsonfile.readFileSync(shortGoodPath);
                                 results.push(item);
                                 jsonfile.writeFileSync(shortGoodPath, results);
