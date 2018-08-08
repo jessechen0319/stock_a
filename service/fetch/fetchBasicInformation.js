@@ -36,7 +36,7 @@ class FetchBasicInformation{
         let stocks = jsonfile.readFileSync(__dirname+'/stocks.json');
         let chainTaskRunner = new ChainTaskRunner();
         let self = this;
-        console.log(this);
+    
         stocks.forEach(element => {
             let task = new ChainTask(()=>{
                 this.downloadInformation(element);
