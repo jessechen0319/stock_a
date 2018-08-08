@@ -82,7 +82,7 @@ class FetchBasicInformation {
         let now = new Date();
         let nowLong = Date.parse(now);
         stocks.forEach((item, index) => {
-            let task = new ChainTask(()=>{
+            let task = new ChainTask(() => {
                 try {
                     let url = `https://stock.xueqiu.com/v5/stock/chart/kline.json?symbol=${item}&begin=${nowLong}&period=15m&type=before&count=-142&indicator=kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy`;
                     GetHTMLContent.downloadHttps(url, (data) => {
@@ -92,20 +92,21 @@ class FetchBasicInformation {
                             let compare1 = data[i - 1];
                             let compare2 = data[i - 2];
                             let compare3 = data[i - 3];
-    
+
                             let averageAmound = compare1[1] + compare2[1] + compare3[1];
                             averageAmound = averageAmound / 3;
-    
+
                             if (analysisData[1] > 2 * averageAmound) {
-                                let shangyinxian = analysisData[3] - analysisData[5];
-                                let zhangE = analysisData[5] - analysisData[2];
-                                if (zhangE > 0) {
-                                    
-                                        let results = jsonfile.readFileSync(shortGoodPath);
-                                        results.push(item);
-                                        jsonfile.writeFileSync(shortGoodPath, results);
-                                    
-                                }
+                                let results = jsonfile.readFileSync(shortGoodPath);
+                                results.push(item);
+                                jsonfile.writeFileSync(shortGoodPath, results);
+                                // let shangyinxian = analysisData[3] - analysisData[5];
+                                // let zhangE = analysisData[5] - analysisData[2];
+                                // if (zhangE > 0) {
+
+
+
+                                // }
                             }
                         }
                         task.end();
