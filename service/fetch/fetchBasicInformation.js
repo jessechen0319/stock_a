@@ -3,7 +3,7 @@ let ChainTask = require('task-chain').ChainTask;
 let ChainTaskRunner = require('task-chain').ChainTaskRunner;
 var jsonfile = require('jsonfile');
 let resultJsonPath = "./highQualityStocks.json";
-jsonfile.writeFileSync(resultJsonPath, []);
+
 
 class FetchBasicInformation {
     structure() {
@@ -43,7 +43,7 @@ class FetchBasicInformation {
 
     fetch(callback) {
         let stocks = jsonfile.readFileSync(__dirname + '/stocks.json');
-
+        jsonfile.writeFileSync(resultJsonPath, []);
         let self = this;
         let chainRunner = new ChainTaskRunner();
 
@@ -71,44 +71,61 @@ class FetchBasicInformation {
         let that = this;
         let shortGoodPath = './goodShort.json';
         jsonfile.writeFileSync(shortGoodPath, []);
-        let fetchTask = new ChainTask(() => {
-            that.fetch(() => {
-                fetchTask.end();
-            })
-        });
-        myTaskRunner.addTask(fetchTask);
+        // let fetchTask = new ChainTask(() => {
+        //     that.fetch(() => {
+        //         fetchTask.end();
+        //     })
+        // });
+        // myTaskRunner.addTask(fetchTask);
 
-        let stocks = jsonfile.readFileSync(__dirname + '/stocks.json');
+        let stocks = jsonfile.readFileSync(__dirname + '/highQualityStocks.json');
         let now = new Date();
         let nowLong = Date.parse(now);
         stocks.forEach((item, index) => {
             let task = new ChainTask(() => {
                 try {
-                    let url = `https://stock.xueqiu.com/v5/stock/chart/kline.json?symbol=${item}&begin=${nowLong}&period=15m&type=before&count=-142&indicator=kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy`;
+                    //https://ex.sina.com.cn/quotes_service/api/jsonp_v2.php/var%20_sh601677_15_1533776648805=/CN_MarketData.getKLineData?symbol=sh601677&scale=15&ma=no&datalen=1023
+                    let url = `https://ex.sina.com.cn/quotes_service/api/jsonp_v2.php/var%20_${item}_15_${nowLong}=/CN_MarketData.getKLineData?symbol=${item}&scale=15&ma=no&datalen=1023`;
+                    
                     GetHTMLContent.downloadHttps(url, (data) => {
-                        data = JSON.parse(data);
+
+                        let string1 = data.split("=")[1];
+                        let string2 = string1.substr(1, string1.length - 2);
+                        string2 = "data = " + string2;
+                        eval(string2);
+                        //data = JSON.parse(string2);
+                        //console.log(data);
+
+                        let inserted = false;
                         for (let i = data.length - 17; i <= data.length - 1; i++) {
                             let analysisData = data[i];
                             let compare1 = data[i - 1];
                             let compare2 = data[i - 2];
                             let compare3 = data[i - 3];
 
-                            let averageAmound = compare1[1] + compare2[1] + compare3[1];
+                            let averageAmound = Number(compare1["volume"]) + Number(compare2["volume"]) + Number(compare3["volume"]);
                             averageAmound = averageAmound / 3;
-                            console.log(analysisData[1]);
+                            
 
-                            if (analysisData[1] > 2 * averageAmound) {
-                                console.log(`good for ${item}`);
-                                let results = jsonfile.readFileSync(shortGoodPath);
-                                results.push(item);
-                                jsonfile.writeFileSync(shortGoodPath, results);
-                                // let shangyinxian = analysisData[3] - analysisData[5];
-                                // let zhangE = analysisData[5] - analysisData[2];
-                                // if (zhangE > 0) {
+                            if (Number(analysisData["volume"]) > 3 * averageAmound) {
 
-
-
-                                // }
+                                let shangyinxian = Number(analysisData['high']) - Number(analysisData['close']);
+                                let zhangE = Number(analysisData['close']) -Number( analysisData['open']);
+                                console.log(shangyinxian);
+                                console.log(zhangE);
+                                console.log(shangyinxian / zhangE < 0.2);
+                                if (zhangE > 0 && zhangE/analysisData['open'] > 0.02) {
+                                    if (shangyinxian / zhangE < 0.2 && !inserted) {
+                                        console.log(`good for ${item}`);
+                                        let insertObj = {};
+                                        insertObj.name=item;
+                                        insertObj.time=analysisData['day'];
+                                        let results = jsonfile.readFileSync(shortGoodPath);
+                                        results.push(insertObj);
+                                        jsonfile.writeFileSync(shortGoodPath, results);
+                                        inserted = true;
+                                    }
+                                }
                             }
                         }
                         task.end();
