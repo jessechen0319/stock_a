@@ -13,6 +13,10 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
 router.get('/trigger', function (req, res, next) {
 
   let fetchForStock = new FetchForStock();

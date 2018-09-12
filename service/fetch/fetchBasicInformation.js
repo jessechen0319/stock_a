@@ -142,6 +142,4 @@ class FetchBasicInformation {
 
 }
 
-let test = new FetchBasicInformation();
-test.fetchBigRed();
-
+module.exports = FetchBasicInformation;
