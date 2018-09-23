@@ -62,6 +62,29 @@ class FetchBasicInformation {
         });
     }
 
+    fetchGrowth(){
+        let myTaskRunner = new ChainTaskRunner();
+        let that = this;
+        let now = new Date();
+        let nowValue = Date.parse(now);
+        let stocks = jsonfile.readFileSync(__dirname + '/highQualityStocks.json');
+        stocks.forEach((stock, index)=>{
+            let url = `https://gupiao.baidu.com/api/stocks/stockweekbar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
+            let task = new ChainTask(()=>{
+                GetHTMLContent.downloadHttps(url, (response)=>{
+                    if(that.analysis && that.analysis.length >0){
+                        const day144 = require("./fetchMethod/day144");
+                        day144.calculate(response, stock);
+                    }
+                    setTimeout(()=>{
+                        task.end();
+                    }, 150);
+                });
+            });
+            myTaskRunner.addTask(task);
+        });
+    }
+
     // below is fetch methods for good stocks
     //有放量实体阳线出来
     //https://stock.xueqiu.com/v5/stock/chart/kline.json?symbol=SH601677&begin=1533763502919&period=15m&type=before&count=-142&indicator=kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy

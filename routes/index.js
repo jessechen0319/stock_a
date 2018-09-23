@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var FetchForStock = require("../service/fetch/fetchForStock");
 let growth144_55 = require('../service/fetch/fetchMethod/day144_55_向上');
+var FetchGood = require("../service/fetch/fetchBasicInformation");
 
 
 let ChainTask = require('task-chain').ChainTask;
@@ -13,8 +14,27 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/fetchMoney', function (req, res, next) {
+  let fetch = new FetchGood();
+  fetch.fetch();
+  res.end("finished");
+});
+
+router.get('/fetchMoneyShort', function (req, res, next) {
+  let fetch = new FetchGood();
+  fetch.fetchBigRed();
+  res.end("finished");
+});
+router.get('/fetchMoneyGrowth', function (req, res, next) {
+  let fetch = new FetchGood();
+  fetch.fetchGrowth();
+  res.end("finished");
+});
+
+router.get('/fetchMoneyShortResult', function (req, res, next) {
+  let result = jsonfile.readFileSync(__dirname+"/../service/fetch/goodSshort.json");
+  res.json(result);
+  res.end();
 });
 
 router.get('/trigger', function (req, res, next) {
