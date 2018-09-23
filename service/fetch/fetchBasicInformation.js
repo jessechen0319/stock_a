@@ -69,14 +69,14 @@ class FetchBasicInformation {
         let nowValue = Date.parse(now);
         let stocks = jsonfile.readFileSync(__dirname + '/highQualityStocks.json');
         stocks.forEach((stock, index)=>{
-            let url = `https://gupiao.baidu.com/api/stocks/stockweekbar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
+            let url = `https://gupiao.baidu.com/api/stocks/stockdaybar?from=pc&os_ver=1&cuid=xxx&vv=100&format=json&stock_code=${stock}&step=3&start=&count=160&fq_type=front&timestamp=${nowValue}`;
             let task = new ChainTask(()=>{
                 GetHTMLContent.downloadHttps(url, (response)=>{
-                    console.log(stock);
+                    //console.log(url);
                     day144.calculate(response, stock);
                     setTimeout(() => {
                         task.end();
-                    }, 150);
+                    }, 350);
                 });
             });
             myTaskRunner.addTask(task);
