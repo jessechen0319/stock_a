@@ -7,21 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>股票筛选系统</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/mini.css">
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/index.js"></script>
+
 </head>
 
 <body>
     <div class="main">
-        <div class="button">
+        <div class="button" onclick="indexHandler.event_handle_144()">
             获取144走好的有钱票
         </div>
+        <table id="resultContainer">
+
+        </table>
+        
     </div>
 </body>
-<style>
-    .main {
-        font-size: 2rem;
-    }
-</style>
-
-
+<script>
+    let indexHandler = new IndexHandler();
+</script>
 </html>
