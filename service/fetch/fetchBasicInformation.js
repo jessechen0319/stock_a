@@ -62,7 +62,7 @@ class FetchBasicInformation {
         });
     }
 
-    fetchGrowth(){
+    fetchGrowth(calculator){
         let myTaskRunner = new ChainTaskRunner();
         let that = this;
         let now = new Date();
@@ -73,10 +73,10 @@ class FetchBasicInformation {
             let task = new ChainTask(()=>{
                 GetHTMLContent.downloadHttps(url, (response)=>{
                     //console.log(url);
-                    day144.calculate(response, stock);
+                    calculator.calculate(response, stock);
                     setTimeout(() => {
                         task.end();
-                    }, 350);
+                    }, 250);
                 });
             });
             myTaskRunner.addTask(task);

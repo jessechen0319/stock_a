@@ -27,7 +27,15 @@ router.get('/fetchMoneyShort', function (req, res, next) {
 });
 router.get('/fetchMoneyGrowth', function (req, res, next) {
   let fetch = new FetchGood();
-  fetch.fetchGrowth();
+  let daygrowth = require("../service/fetch/fetchMethod/day144");
+  fetch.fetchGrowth(daygrowth);
+  res.end("finished");
+});
+
+router.get('/fetchpianli', function (req, res, next) {
+  let fetch = new FetchGood();
+  let daygrowth = require("../service/fetch/fetchMethod/144向上偏离144十个点");
+  fetch.fetchGrowth(daygrowth);
   res.end("finished");
 });
 
