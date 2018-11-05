@@ -20,7 +20,9 @@ class FetchBasicInformation {
             try {
                 let jsonData = JSON.parse(data);
                 let latestCash = Number(jsonData[0]['mgjyxjl']);
-                if (latestCash > 0) {
+                let latestLiabilities = Number(jsonData[0]['zcfzl']);
+                let secondLiabilities = Number(jsonData[0]['zcfzl']);
+                if (latestCash > 0 && latestLiabilities < secondLiabilities) {
                     let secondCash = Number(jsonData[4]['mgjyxjl']);
                     if (secondCash < 0 || (latestCash - secondCash) / secondCash > 0.7) {
                         if (Number(jsonData[0]['jbmgsy']) > Number(jsonData[4]['jbmgsy'])) {
