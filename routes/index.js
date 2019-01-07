@@ -39,6 +39,13 @@ router.get('/fetchpianli', function (req, res, next) {
   res.end("finished");
 });
 
+router.get('/qidong', function (req, res, next) {
+  let fetch = new FetchGood();
+  let daygrowth = require("../service/fetch/fetchMethod/启动");
+  fetch.fetchGrowth(daygrowth);
+  res.end("finished");
+});
+
 router.get('/fetchMoneyShortResult', function (req, res, next) {
   let result = jsonfile.readFileSync(__dirname+"/../service/fetch/goodSshort.json");
   res.json(result);
